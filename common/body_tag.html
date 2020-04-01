@@ -21,8 +21,8 @@
     {{~topic-featured-link topic}}
     {{~/if}}
     {{~raw-plugin-outlet name="topic-list-after-title"}}
-    {{~raw "list/unread-indicator" includeUnreadIndicator=includeUnreadIndicator 
-                                   topicId=topic.id 
+    {{~raw "list/unread-indicator" includeUnreadIndicator=includeUnreadIndicator
+                                   topicId=topic.id
                                    unreadClass=unreadClass~}}
     {{~#if showTopicPostBadges}}
     {{~raw "topic-post-badges" unread=topic.unread newPosts=topic.displayNewPosts unseen=topic.unseen url=topic.lastUnreadUrl newDotText=newDotText}}
@@ -69,4 +69,27 @@
 <td class="num views {{topic.viewsHeat}}">{{number topic.views numberKey="views_long"}}</td>
 
 {{raw "list/activity-column" topic=topic class="num" tagName="td"}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="components/latest-topic-list-item.raw">
+<div class='main-link'>
+  <div class='top-row'>
+    {{raw "topic-status" topic=topic}}
+    {{topic-link topic}}
+    {{#if topic.featured_link}}
+      {{topic-featured-link topic}}
+    {{/if}}
+    {{topic-post-badges newPosts=topic.totalUnread unseen=topic.unseen url=topic.lastUnreadUrl}}
+  </div>
+  <div class='bottom-row'>
+    {{category-link topic.category}}
+    {{discourse-tags topic mode="list"}}
+  </div>
+</div>
+<div class='topic-stats'>
+  {{raw "list/posts-count-column" topic=topic tagName="div"}}
+  <div class="topic-last-activity">
+    <a href={{topic.lastPostUrl}} title={{topic.bumpedAtTitle}}>{{format-date topic.bumpedAt format="tiny" noTitle="true"}}</a>
+  </div>
+</div>
 </script>
